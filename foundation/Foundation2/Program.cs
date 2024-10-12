@@ -4,124 +4,124 @@ using System.Collections.Generic;
 // Product Class
 class Product
 {
-    private string name;
-    private string productId;
-    private double price;
-    private int quantity;
+    private string _name;
+    private string _productId;
+    private double _price;
+    private int _quantity;
 
     public Product(string name, string productId, double price, int quantity)
     {
-        this.name = name;
-        this.productId = productId;
-        this.price = price;
-        this.quantity = quantity;
+        _name = name;
+        _productId = productId;
+        _price = price;
+        _quantity = quantity;
     }
 
     public double GetTotalCost()
     {
-        return price * quantity;
+        return _price * _quantity;
     }
 
     public string GetName()
     {
-        return name;
+        return _name;
     }
 
     public string GetProductId()
     {
-        return productId;
+        return _productId;
     }
 }
 
 // Address Class
 class Address
 {
-    private string street;
-    private string city;
-    private string state;
-    private string country;
+    private string _street;
+    private string _city;
+    private string _state;
+    private string _country;
 
     public Address(string street, string city, string state, string country)
     {
-        this.street = street;
-        this.city = city;
-        this.state = state;
-        this.country = country;
+        _street = street;
+        _city = city;
+        _state = state;
+        _country = country;
     }
 
     public bool IsInUSA()
     {
-        return country == "USA";
+        return _country.ToLower() == "usa";
     }
 
     public string GetFullAddress()
     {
-        return $"{street}\n{city}, {state}\n{country}";
+        return $"{_street}\n{_city}, {_state}\n{_country}";
     }
 }
 
 // Customer Class
 class Customer
 {
-    private string name;
-    private Address address;
+    private string _name;
+    private Address _address;
 
     public Customer(string name, Address address)
     {
-        this.name = name;
-        this.address = address;
+        _name = name;
+        _address = address;
     }
 
     public bool IsInUSA()
     {
-        return address.IsInUSA();
+        return _address.IsInUSA();
     }
 
     public string GetName()
     {
-        return name;
+        return _name;
     }
 
     public string GetAddress()
     {
-        return address.GetFullAddress();
+        return _address.GetFullAddress();
     }
 }
 
 // Order Class
 class Order
 {
-    private List<Product> products;
-    private Customer customer;
+    private List<Product> _products;
+    private Customer _customer;
 
     public Order(Customer customer)
     {
-        this.customer = customer;
-        this.products = new List<Product>();
+        _customer = customer;
+        _products = new List<Product>();
     }
 
     public void AddProduct(Product product)
     {
-        products.Add(product);
+        _products.Add(product);
     }
 
     public double GetTotalPrice()
     {
         double total = 0;
-        foreach (var product in products)
+        foreach (var product in _products)
         {
             total += product.GetTotalCost();
         }
 
         // Add shipping cost
-        double shippingCost = customer.IsInUSA() ? 5.00 : 35.00;
+        double shippingCost = _customer.IsInUSA() ? 5.00 : 35.00;
         return total + shippingCost;
     }
 
     public string GetPackingLabel()
     {
         string label = "Packing Label:\n";
-        foreach (var product in products)
+        foreach (var product in _products)
         {
             label += $"{product.GetName()} - {product.GetProductId()}\n";
         }
@@ -130,7 +130,7 @@ class Order
 
     public string GetShippingLabel()
     {
-        return $"Shipping Label:\n{customer.GetName()}\n{customer.GetAddress()}";
+        return $"Shipping Label:\n{_customer.GetName()}\n{_customer.GetAddress()}";
     }
 }
 
