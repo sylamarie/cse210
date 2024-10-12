@@ -4,55 +4,55 @@ using System.Collections.Generic;
 // Comment Class
 class Comment
 {
-    public string Name { get; set; }
-    public string Text { get; set; }
+    public string _name { get; set; }
+    public string _text { get; set; }
 
     public Comment(string name, string text)
     {
-        Name = name;
-        Text = text;
+        _name = name;
+        _text = text;
     }
 
     public void Display()
     {
-        Console.WriteLine($"Comment by {Name}: {Text}");
+        Console.WriteLine($"Comment by {_name}: {_text}");
     }
 }
 
 // Video Class
 class Video
 {
-    public string Title { get; set; }
-    public string Author { get; set; }
-    public int Length { get; set; } // in seconds
-    public List<Comment> Comments { get; set; }
+    public string _title { get; set; }
+    public string _author { get; set; }
+    public int _length { get; set; } // in seconds
+    public List<Comment> _comments { get; set; }
 
     public Video(string title, string author, int length)
     {
-        Title = title;
-        Author = author;
-        Length = length;
-        Comments = new List<Comment>();
+        _title = title;
+        _author = author;
+        _length = length;
+        _comments = new List<Comment>();
     }
 
     public void AddComment(Comment comment)
     {
-        Comments.Add(comment);
+        _comments.Add(comment);
     }
 
     public int GetNumComments()
     {
-        return Comments.Count;
+        return _comments.Count;
     }
 
     public void DisplayInfo()
     {
-        Console.WriteLine($"Title: {Title}");
-        Console.WriteLine($"Author: {Author}");
-        Console.WriteLine($"Length: {Length} seconds");
+        Console.WriteLine($"Title: {_title}");
+        Console.WriteLine($"Author: {_author}");
+        Console.WriteLine($"Length: {_length} seconds");
         Console.WriteLine($"Number of Comments: {GetNumComments()}");
         Console.WriteLine("Comments:");
-        foreach (var comment in Comments)
+        foreach (var comment in _comments)
         {
             comment.Display();
         }
