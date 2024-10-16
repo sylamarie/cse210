@@ -41,57 +41,57 @@ public class ScriptureReference
 
 public class Word
 {
-    private string text;
-    private bool isHidden;
+    private string _text;
+    private bool _isHidden;
 
     public Word(string text)
     {
-        this.text = text;
-        isHidden = false;
+        _text = text;
+        _isHidden = false;
     }
 
     public void Hide()
     {
-        isHidden = true;
+        _isHidden = true;
     }
 
     public bool IsHidden()
     {
-        return isHidden;
+        return _isHidden;
     }
 
     public string Display()
     {
-        return isHidden ? new string('_', text.Length) : text;
+        return _isHidden ? new string('_', _text.Length) : _text;
     }
 
     public string GetText()
     {
-        return text;
+        return _text;
     }
 }
 
 public class ScriptureText
 {
     public ScriptureReference Reference { get; private set; }
-    private List<Word> words;
-    private Random random = new Random();
-    private List<int> hiddenIndices = new List<int>();
+    private List<Word> _words;
+    private Random _random = new Random();
+    private List<int> _hiddenIndices = new List<int>();
 
     public ScriptureText(ScriptureReference reference, string text)
     {
         Reference = reference;
-        words = text.Split(' ').Select(word => new Word(word)).ToList();
+        _words = text.Split(' ').Select(word => new Word(word)).ToList();
     }
 
     public void Display()
     {
         Console.WriteLine(Reference);
-        foreach (var word in words)
+        foreach (var word in _words)
         {
             if (word.IsHidden())
             {
-                Console.Write($"{GetWordPosition(words.IndexOf(word))}_{new string('_', word.GetText().Length - 1)} ");
+                Console.Write($"{GetWordPosition(_words.IndexOf(word))}_{new string('_', word.GetText().Length - 1)} ");
             }
             else
             {
@@ -103,7 +103,7 @@ public class ScriptureText
 
     public List<int> HideRandomWords(int count)
     {
-        var unhiddenWords = words.Where(w => !w.IsHidden()).ToList();
+        var unhiddenWords = _words.Where(w => !w.IsHidden()).ToList();
         if (unhiddenWords.Count == 0)
             return null;
 
@@ -113,11 +113,11 @@ public class ScriptureText
             int index;
             do
             {
-                index = random.Next(words.Count);
-            } while (words[index].IsHidden());
+                index = _random.Next(_words.Count);
+            } while (_words[index].IsHidden());
 
-            words[index].Hide();
-            hiddenIndices.Add(index);
+            _words[index].Hide();
+            _hiddenIndices.Add(index);
             newHiddenIndices.Add(index);
         }
 
@@ -126,7 +126,7 @@ public class ScriptureText
 
     public bool CheckUserGuess(string userInput, int wordIndex)
     {
-        return words[wordIndex].GetText().Equals(userInput, StringComparison.OrdinalIgnoreCase);
+        return _words[wordIndex].GetText().Equals(userInput, StringComparison.OrdinalIgnoreCase);
     }
 
     public void DisplayMissingWordPositions()
@@ -134,10 +134,10 @@ public class ScriptureText
         Console.WriteLine("Missing words:");
         
         // Sort hidden indices to maintain order and get unique numbering
-        List<int> sortedIndices = hiddenIndices.OrderBy(i => GetWordPosition(i)).ToList();
+        List<int> sortedIndices = _hiddenIndices.OrderBy(i => GetWordPosition(i)).ToList();
         foreach (var index in sortedIndices)
         {
-            Console.WriteLine($"Word {GetWordPosition(index)}: {new string('_', words[index].GetText().Length)}");
+            Console.WriteLine($"Word {GetWordPosition(index)}: {new string('_', _words[index].GetText().Length)}");
         }
     }
 
@@ -148,7 +148,7 @@ public class ScriptureText
 
     public int GetHiddenCount()
     {
-        return hiddenIndices.Count;
+        return _hiddenIndices.Count;
     }
 
     public int GetWordPosition(int index)
@@ -156,7 +156,7 @@ public class ScriptureText
         int position = 1;
         for (int i = 0; i < index; i++)
         {
-            if (!IsPunctuation(words[i].GetText()))
+            if (!IsPunctuation(_words[i].GetText()))
             {
                 position++;
             }
@@ -172,17 +172,17 @@ public class ScriptureText
 
     public List<int> GetHiddenWordIndices()
     {
-        return hiddenIndices.ToList();
+        return _hiddenIndices.ToList();
     }
 
     public void ResetHiddenIndices()
     {
-        hiddenIndices.Clear();
-        for (int i = 0; i < words.Count; i++)
+        _hiddenIndices.Clear();
+        for (int i = 0; i < _words.Count; i++)
         {
-            if (words[i].IsHidden())
+            if (_words[i].IsHidden())
             {
-                hiddenIndices.Add(i);
+                _hiddenIndices.Add(i);
             }
         }
     }
