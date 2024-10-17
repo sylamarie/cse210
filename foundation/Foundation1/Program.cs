@@ -66,22 +66,24 @@ class Program
     static void Main(string[] args)
     {
         // Creating sample videos
-        Video video1 = new Video("C# Basics Tutorial", "John Doe", 1200);
-        Video video2 = new Video("Advanced JavaScript", "Jane Smith", 900);
-        Video video3 = new Video("Introduction to Data Science", "Sam Lee", 1500);
+        Video video1 = new Video("Learn C# in 10 Minutes", "John Doe", 600);
+        Video video2 = new Video("Understanding LINQ", "Jane Smith", 900);
+        Video video3 = new Video("Mastering ASP.NET", "Alex Brown", 1200);
 
         // Adding comments to video1
-        video1.AddComment(new Comment("Alice", "Great video, very informative!"));
-        video1.AddComment(new Comment("Bob", "I loved the explanation of loops."));
-        video1.AddComment(new Comment("Charlie", "Could you cover more on OOP?"));
+        video1.AddComment(new Comment("Alice", "Great introduction!"));
+        video1.AddComment(new Comment("Bob", "Really helpful, thanks!"));
+        video1.AddComment(new Comment("Charlie", "I learned a lot in just 10 minutes!"));
 
         // Adding comments to video2
-        video2.AddComment(new Comment("Dave", "Super helpful!"));
-        video2.AddComment(new Comment("Eve", "Clear and concise, thanks!"));
+        video2.AddComment(new Comment("Dave", "LINQ is confusing, but this video helped."));
+        video2.AddComment(new Comment("Eve", "Thanks for the clear explanation!"));
+        video2.AddComment(new Comment("Frank", "Could you make a follow-up on advanced LINQ?"));
 
         // Adding comments to video3
-        video3.AddComment(new Comment("Frank", "Awesome introduction to data science."));
-        video3.AddComment(new Comment("Grace", "Thanks for the insights!"));
+        video3.AddComment(new Comment("Grace", "This ASP.NET tutorial is a lifesaver!"));
+        video3.AddComment(new Comment("Helen", "Clear and concise. I appreciate it."));
+        video3.AddComment(new Comment("Ivy", "I'm ready to build web apps now!"));
 
         // Storing videos in a list
         List<Video> videos = new List<Video> { video1, video2, video3 };
